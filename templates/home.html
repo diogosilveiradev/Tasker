@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Página Inicial - Tasker{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>Bem-vindo, {{ request.user.first_name|default:request.user.username }}!</h1>
+    <p class="lead">Esta é a sua área principal no Tasker.</p>
+
+    <div class="mt-4">
+      <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-success me-2">Ver Projetos</a>
+      <a href="{% url 'tarefas:lista_tarefas' %}" class="btn btn-primary me-2">Ver Tarefas</a>
+      <a href="{% url 'logout' %}" class="btn btn-danger">Sair</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

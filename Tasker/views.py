@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 @login_required
-def lista_projetos(request):
-    return render(request, 'projetos/lista.html')
+def home(request):
+    return render(request, 'home.html')
