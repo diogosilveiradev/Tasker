@@ -1,17 +1,107 @@
 {% extends 'base.html' %}
-
-{% block title %}Página Inicial - Tasker{% endblock %}
+{% block title %}Início - Tasker{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-  <div class="text-center">
-    <h1>Bem-vindo, {{ request.user.first_name|default:request.user.username }}!</h1>
-    <p class="lead">Esta é a sua área principal no Tasker.</p>
+  <div class="text-center mb-4">
+    <h1>Olá, {{ request.user.first_name|default:request.user.username }}!</h1>
+    <p class="lead">Seja bem-vindo ao Tasker 👋</p>
+  </div>
 
-    <div class="mt-4">
-      <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-success me-2">Ver Projetos</a>
-      <a href="{% url 'tarefas:lista_tarefas' %}" class="btn btn-primary me-2">Ver Tarefas</a>
-      <a href="{% url 'logout' %}" class="btn btn-danger">Sair</a>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Projetos -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Seus Projetos</h5>
+          
+          {% if projetos %}
+            <ul class="list-group mb-3">
+              {% for projeto in projetos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ projeto.nome }}
+                  <div>
+                    <a href="{% url 'tarefas:lista_tarefas' projeto.id %}" class="btn btn-sm btn-outline-primary me-2">Tarefas</a>
+                    <a href="{% url 'projetos:editar_projeto' projeto.id %}" class="btn btn-sm btn-outline-warning">Editar</a>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Você ainda não criou nenhum projeto.</p>
+          {% endif %}
+
+          <a href="{% url 'projetos:criar_projeto' %}" class="btn btn-success">Criar Novo Projeto</a>
+        </div>
+      </div>
+
+      <!-- Tarefas -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Suas Tarefas</h5>
+
+          {% if tarefas %}
+            <ul class="list-group mb-3">
+              {% for tarefa in tarefas %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <strong>{{ tarefa.titulo }}</strong><br>
+                    <small class="text-muted">Projeto: {{ tarefa.projeto.nome }}</small><br>
+                    {% if tarefa.prazo %}
+                      <small class="text-muted">Prazo: {{ tarefa.prazo|date:"d/m/Y" }}</small>
+                    {% else %}
+                      <small class="text-muted">Sem prazo definido</small>
+                    {% endif %}
+                  </div>
+
+                  <div>
+                    {% if not tarefa.concluida %}
+                      <span class="badge bg-warning text-dark me-2">Pendente</span>
+                    {% else %}
+                      <span class="badge bg-success me-2">Concluída</span>
+                    {% endif %}
+                    <a href="{% url 'tarefas:editar_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-outline-warning me-2">Editar</a>
+                    <a href="{% url 'tarefas:excluir_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-muted">Você não tem tarefas cadastradas.</p>
+          {% endif %}
+
+          <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-primary">Ver Projetos</a>
+        </div>
+      </div>
+
+      <!-- Usuários -->
+      {% if request.user.is_superuser %}
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Usuários Cadastrados</h5>
+
+            {% if usuarios %}
+              <ul class="list-group">
+                {% for usuario in usuarios %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                      <strong>{{ usuario.get_full_name|default:usuario.username }}</strong><br>
+                      <small class="text-muted">Email: {{ usuario.email }}</small>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted">Nenhum usuário encontrado.</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Sair -->
+      <div class="text-center mt-4">
+        <a href="{% url 'logout' %}" class="btn btn-danger">Sair</a>
+      </div>
     </div>
   </div>
 </div>

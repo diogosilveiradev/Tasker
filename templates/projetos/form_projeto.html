@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ titulo }} - Projeto{% endblock %}
+{% block content %}
+<h2>{{ titulo }}</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

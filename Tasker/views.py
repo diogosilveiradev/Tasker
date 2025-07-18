@@ -1,6 +1,14 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from projetos.models import Projeto
+from tarefas.models import Tarefa
+from django.contrib.auth.models import User
 
-@login_required
 def home(request):
-    return render(request, 'home.html')
+    projetos = Projeto.objects.all()
+    tarefas = Tarefa.objects.all()
+    usuarios = User.objects.all()
+    return render(request, 'home.html', {
+        'projetos': projetos,
+        'tarefas': tarefas,
+        'usuarios': usuarios
+    })

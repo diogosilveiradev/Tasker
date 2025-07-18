@@ -1,12 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-
-@login_required
-def home(request):
-    return render(request, 'home.html')
+from .views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -18,4 +13,5 @@ urlpatterns = [
 
     path('projetos/', include(('projetos.urls', 'projetos'), namespace='projetos')),
     path('tarefas/', include(('tarefas.urls', 'tarefas'), namespace='tarefas')),
+
 ]
