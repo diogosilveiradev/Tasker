@@ -7,8 +7,24 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-# importe os forms personalizados
 from .forms import CustomUserCreationForm, UsuarioForm, UserBasicForm
+from django.contrib.auth import authenticate, login
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home') 
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+
+    return render(request, 'usuarios/login.html')
 
 
 @method_decorator(login_required, name='dispatch')

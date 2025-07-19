@@ -5,12 +5,22 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card shadow">
-        <div class="card-header text-center">
-          <h4>Entrar no Tasker</h4>
+      <div class="card shadow-lg rounded">
+        <div class="card-header text-center bg-primary text-white">
+          <h4 class="mb-0">Entrar no Tasker</h4>
         </div>
         <div class="card-body">
-          <form method="post">
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {% for error in form.non_field_errors %}
+                {{ error }}
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+          {% endif %}
+
+          <form method="post" novalidate>
             {% csrf_token %}
             <div class="mb-3">
               <label for="id_username" class="form-label">Usuário</label>
@@ -26,8 +36,8 @@
           </form>
         </div>
         <div class="card-footer text-center">
-          <p>Não tem conta? <a href="{% url 'usuarios:registro' %}">Cadastre-se aqui</a></p>
-          <small>© 2025 Tasker</small>
+          <p class="mb-1">Não tem conta? <a href="{% url 'usuarios:registro' %}">Cadastre-se aqui</a></p>
+          <small class="text-muted">© 2025 Tasker</small>
         </div>
       </div>
     </div>

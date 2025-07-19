@@ -9,7 +9,7 @@
     padding: 2rem 2.5rem;
     background: #fff;
     border-radius: 12px;
-    border: 2px solid #ced4da; /* borda cinza clara */
+    border: 2px solid #ced4da; 
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
@@ -19,7 +19,7 @@
     font-weight: 700;
     font-size: 2.4rem;
     margin-bottom: 1rem;
-    color: #212529; /* texto quase preto */
+    color: #212529;
   }
 
   .project-card p {
@@ -43,7 +43,7 @@
   }
 
   .btn-primary {
-    background: #0d6efd; /* azul bootstrap */
+    background: #0d6efd;
     border: none;
     padding: 0.6rem 1.3rem;
     font-size: 1rem;
@@ -61,7 +61,7 @@
   }
 
   .btn-secondary {
-    background: #e9ecef; /* cinza claro para botão */
+    background: #e9ecef; 
     border: none;
     padding: 0.6rem 1.3rem;
     font-size: 1rem;
@@ -79,16 +79,13 @@
 
 <div class="project-card">
   <h2>{{ projeto.nome }}</h2>
-  
   <p><strong>Descrição:</strong></p>
   {% if projeto.descricao %}
     <p>{{ projeto.descricao|linebreaks }}</p>
   {% else %}
     <p><em>(sem descrição)</em></p>
   {% endif %}
-  
   <p><strong>Criado em:</strong> {{ projeto.criado_em|date:"d/m/Y H:i" }}</p>
-
   <div class="project-footer">
     <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-secondary">Voltar</a>
     <a href="{% url 'projetos:editar_projeto' projeto.id %}" class="btn btn-primary">Editar Projeto</a>

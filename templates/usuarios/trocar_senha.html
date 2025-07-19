@@ -5,7 +5,6 @@
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="card shadow p-4" style="width: 100%; max-width: 500px;">
     <h3 class="text-center mb-4">🔒 Trocar Senha</h3>
-
     <form method="post" novalidate>
       {% csrf_token %}
       {% for field in form %}
@@ -25,7 +24,6 @@
           {% endif %}
         </div>
       {% endfor %}
-
       <div class="d-flex justify-content-between">
         <button type="submit" class="btn btn-primary w-50">Alterar Senha</button>
         <a href="{% url 'usuarios:perfil' %}" class="btn btn-secondary w-45 ms-2">Cancelar</a>

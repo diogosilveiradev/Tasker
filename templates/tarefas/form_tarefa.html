@@ -9,10 +9,9 @@
     max-width: 500px;
     margin: 2rem auto;
     padding: 2rem;
-    background: #8b8b8;
+    background: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-
     border: 2px solid #b8b8b8;
   }
 
@@ -26,16 +25,14 @@
     transition: border-color 0.3s, box-shadow 0.3s;
   }
 
-
   .form-control:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
 
-
   .is-invalid {
-    border-color: #dc3545
+    border-color: #dc3545;
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
   }
 
@@ -63,10 +60,8 @@
 
 <div class="form-container">
   <h2 class="text-center mb-4">{% if form.instance.pk %}Editar{% else %}Nova{% endif %} Tarefa</h2>
-
   <form method="post">
     {% csrf_token %}
-
     <div class="mb-3">
       {{ form.titulo.label_tag }}
       {% if form.titulo.errors %}
@@ -76,7 +71,6 @@
       {% endif %}
       {{ form.titulo.errors }}
     </div>
-
     <div class="mb-3">
       {{ form.descricao.label_tag }}
       {% if form.descricao.errors %}
@@ -86,7 +80,6 @@
       {% endif %}
       {{ form.descricao.errors }}
     </div>
-
     <div class="mb-3">
       {{ form.prazo.label_tag }}
       {% if form.prazo.errors %}
@@ -96,13 +89,11 @@
       {% endif %}
       {{ form.prazo.errors }}
     </div>
-
     <div class="form-check">
       {{ form.concluida|add_class:"form-check-input" }}
       {{ form.concluida.label_tag }}
       {{ form.concluida.errors }}
     </div>
-
     <div class="btn-group">
       <button type="submit" class="btn btn-primary flex-grow-1">Salvar</button>
       <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-secondary flex-grow-1 text-center">Voltar</a>
