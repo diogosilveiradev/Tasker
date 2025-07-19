@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Tarefa
+from projetos.models import Tarefa
 from projetos.models import Projeto
 from .forms import TarefaForm
 
@@ -12,7 +12,8 @@ def lista_tarefas(request, projeto_id):
 
 @login_required
 def criar_tarefa(request, projeto_id):
-    projeto = get_object_or_404(Projeto, pk=projeto_id, dono=request.user)
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+
     if request.method == 'POST':
         form = TarefaForm(request.POST)
         if form.is_valid():
@@ -22,12 +23,18 @@ def criar_tarefa(request, projeto_id):
             return redirect('projetos:lista_tarefas', projeto_id=projeto.id)
     else:
         form = TarefaForm()
-    return render(request, 'tarefas/form_tarefa.html', {'form': form, 'titulo': 'Criar Tarefa', 'projeto': projeto})
+
+    return render(request, 'tarefas/form_tarefa.html', {
+        'form': form,
+        'projeto': projeto
+    })
+
 
 @login_required
-def editar_tarefa(request, projeto_id, pk):
-    projeto = get_object_or_404(Projeto, pk=projeto_id, dono=request.user)
-    tarefa = get_object_or_404(Tarefa, pk=pk, projeto=projeto)
+def editar_tarefa(request, projeto_id, id):
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+    tarefa = get_object_or_404(Tarefa, id=id, projeto=projeto)
+
     if request.method == 'POST':
         form = TarefaForm(request.POST, instance=tarefa)
         if form.is_valid():
@@ -35,13 +42,21 @@ def editar_tarefa(request, projeto_id, pk):
             return redirect('projetos:lista_tarefas', projeto_id=projeto.id)
     else:
         form = TarefaForm(instance=tarefa)
-    return render(request, 'tarefas/form_tarefa.html', {'form': form, 'titulo': 'Editar Tarefa', 'projeto': projeto})
+
+    return render(request, 'tarefas/form_tarefa.html', {'form': form, 'projeto': projeto})
+
 
 @login_required
-def excluir_tarefa(request, projeto_id, pk):
-    projeto = get_object_or_404(Projeto, pk=projeto_id, dono=request.user)
-    tarefa = get_object_or_404(Tarefa, pk=pk, projeto=projeto)
+def excluir_tarefa(request, projeto_id, id):
+    projeto = get_object_or_404(Projeto, id=projeto_id, dono=request.user)
+    tarefa = get_object_or_404(Tarefa, id=id, projeto=projeto)
     if request.method == 'POST':
         tarefa.delete()
         return redirect('projetos:lista_tarefas', projeto_id=projeto.id)
     return render(request, 'tarefas/confirma_exclusao.html', {'tarefa': tarefa, 'projeto': projeto})
+
+@login_required
+def detalhar_tarefa(request, projeto_id, tarefa_id):
+    projeto = get_object_or_404(Projeto, id=projeto_id, dono=request.user)
+    tarefa = get_object_or_404(Tarefa, id=tarefa_id, projeto=projeto)
+    return render(request, 'tarefas/detalhar_tarefa.html', {'projeto': projeto, 'tarefa': tarefa})

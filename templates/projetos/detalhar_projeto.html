@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Detalhes do Projeto{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ projeto.nome }}</h2>
+  <p><strong>Descrição:</strong></p>
+  {% if projeto.descricao %}
+    <p>{{ projeto.descricao|linebreaks }}</p>
+  {% else %}
+    <p><em>(sem descrição)</em></p>
+  {% endif %}
+  <p><strong>Criado em:</strong> {{ projeto.criado_em|date:"d/m/Y H:i" }}</p>
+
+  <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-secondary mt-3">Voltar</a>
+  <a href="{% url 'projetos:editar_projeto' projeto.id %}" class="btn btn-primary mt-3">Editar Projeto</a>
+</div>
+{% endblock %}

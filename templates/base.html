@@ -7,27 +7,48 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and request.path != '/usuarios/login/' and request.path != '/usuarios/registro/' %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
+      <div class="container-fluid px-4">
         <a class="navbar-brand" href="{% url 'home' %}">Tasker</a>
-        <div class="collapse navbar-collapse">
+
+        <div class="collapse navbar-collapse justify-content-between">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a class="nav-link" href="{% url 'projetos:lista_projetos' %}">Projetos</a></li>
-            <!-- Linha removida para evitar erro -->
-            {# <li class="nav-item"><a class="nav-link" href="{% url 'tarefas:lista_geral' %}">Tarefas</a></li> #}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'projetos:lista_projetos' %}">Projetos</a>
+            </li>
             {% if user.is_superuser %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'usuarios:lista_usuarios' %}">Usuários</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'usuarios:lista_usuarios' %}">Usuários</a>
+              </li>
             {% endif %}
           </ul>
-          <span class="navbar-text me-2">Olá, {{ user.first_name|default:user.username }}</span>
-          <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}">Sair</a>
+
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <span class="navbar-text me-2 text-white">Olá, {{ user.username }}</span>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-outline-light btn-sm me-2" href="{% url 'usuarios:perfil' %}">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger btn-sm" type="submit">Sair</button>
+              </form>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
   {% endif %}
 
-  <main class="py-4">
+  <main class="py-4 container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
 

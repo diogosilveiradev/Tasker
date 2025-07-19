@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Detalhes da Tarefa{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ tarefa.titulo }}</h2>
+  <p><strong>Descrição:</strong> {{ tarefa.descricao|default:"(sem descrição)" }}</p>
+  <p><strong>Prazo:</strong> 
+    {% if tarefa.prazo %}
+      {{ tarefa.prazo|date:"d/m/Y H:i" }}
+    {% else %}
+      (não definido)
+    {% endif %}
+  </p>
+  <p><strong>Status:</strong> 
+    {% if tarefa.concluida %}
+      <span class="badge bg-success">Concluída</span>
+    {% else %}
+      <span class="badge bg-warning text-dark">Pendente</span>
+    {% endif %}
+  </p>
+  <p><strong>Criada em:</strong> {{ tarefa.criada_em|date:"d/m/Y H:i" }}</p>
+  <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+{% endblock %}

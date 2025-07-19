@@ -139,3 +139,4 @@ LOGIN_URL = '/usuarios/login/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/usuarios/login/'
 
+

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Registro - Tasker{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header text-center">
+          <h4>Criar Conta</h4>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success">Registrar</button>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center">
+          <p>Já tem conta? <a href="{% url 'usuarios:login' %}">Faça login aqui</a></p>
+          <small>© 2025 Tasker</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

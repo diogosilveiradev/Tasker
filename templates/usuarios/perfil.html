@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Perfil - Tasker{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Seu Perfil</h2>
+  <form method="post">
+    {% csrf_token %}
+    <h5>Dados de usuário</h5>
+    {{ user_form.as_p }}
+
+    {% if user.is_superuser %}
+      {{ admin_form.as_p }}
+    {% endif %}
+
+    <button type="submit" class="btn btn-success">Salvar alterações</button>
+  </form>
+
+  <hr>
+
+  <a href="{% url 'usuarios:trocar_senha' %}" class="btn btn-warning mt-3">Trocar Senha</a>
+</div>
+{% endblock %}
