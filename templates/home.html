@@ -21,7 +21,7 @@
                     <a href="{% url 'projetos:editar_projeto' projeto.id %}" class="btn btn-sm btn-warning" title="Editar Projeto">
                       <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-sm btn-primary me-1" title="Ver Tarefas">
+                    <a href="{% url 'tarefas:lista_tarefas' projeto.id %}" class="btn btn-sm btn-primary me-1" title="Ver Tarefas">
                       <i class="bi bi-list-check"></i>
                     </a>
                   </div>
@@ -54,10 +54,10 @@
                     {% endif %}
                   </div>
                   <div>
-                    <a href="{% url 'projetos:editar_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-warning me-1" title="Editar Tarefa">
+                    <a href="{% url 'tarefas:editar_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-warning me-1" title="Editar Tarefa">
                       <i class="bi bi-pencil"></i>
                     </a>
-                    <a href="{% url 'projetos:excluir_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-danger" title="Excluir Tarefa">
+                    <a href="{% url 'tarefas:excluir_tarefa' tarefa.projeto.id tarefa.id %}" class="btn btn-sm btn-danger" title="Excluir Tarefa">
                       <i class="bi bi-trash"></i>
                     </a>
                   </div>

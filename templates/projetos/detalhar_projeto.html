@@ -88,7 +88,6 @@
   <p><strong>Criado em:</strong> {{ projeto.criado_em|date:"d/m/Y H:i" }}</p>
   <div class="project-footer">
     <a href="{% url 'projetos:lista_projetos' %}" class="btn btn-secondary">Voltar</a>
-    <a href="{% url 'projetos:editar_projeto' projeto.id %}" class="btn btn-primary">Editar Projeto</a>
   </div>
 </div>
 {% endblock %}

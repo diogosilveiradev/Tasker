@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import ProjetoForm
-from .models import Projeto, Tarefa
+from .models import Projeto
 
 @login_required
 def lista_projetos(request):

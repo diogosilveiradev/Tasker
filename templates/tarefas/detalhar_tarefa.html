@@ -20,6 +20,6 @@
     {% endif %}
   </p>
   <p><strong>Criada em:</strong> {{ tarefa.criada_em|date:"d/m/Y H:i" }}</p>
-  <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-secondary mt-3">Voltar</a>
+  <a href="{% url 'tarefas:lista_tarefas' projeto.id %}" class="btn btn-secondary mt-3">Voltar</a>
 </div>
 {% endblock %}

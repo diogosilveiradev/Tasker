@@ -39,7 +39,7 @@
               <a href="{% url 'projetos:excluir_projeto' projeto.id %}" class="btn btn-danger btn-sm me-1" title="Excluir">
                 <i class="bi bi-trash"></i>
               </a>
-              <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-primary btn-sm" title="Ver Tarefas">
+              <a href="{% url 'tarefas:lista_tarefas' projeto.id %}" class="btn btn-primary btn-sm" title="Ver Tarefas">
                 <i class="bi bi-list-check"></i>
               </a>
             </td>

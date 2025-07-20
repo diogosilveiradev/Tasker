@@ -1,5 +1,5 @@
 from django import forms
-from projetos.models import Tarefa
+from .models import Tarefa
 
 class TarefaForm(forms.ModelForm):
     prazo = forms.DateTimeField(

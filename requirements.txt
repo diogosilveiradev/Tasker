@@ -1,0 +1,5 @@
+Django==3.2.21
+django-widget-tweaks==1.4.8
+django-decorator-include==1.4
+Pillow==10.2.0
+django-crispy-forms==2.0

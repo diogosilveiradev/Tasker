@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from projetos.models import Projeto, Tarefa
+from projetos.models import Projeto
+from tarefas.models import Tarefa
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
