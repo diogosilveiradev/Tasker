@@ -1,15 +1,54 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
-{% block title %}{{ titulo }} - Usuário - Tasker{% endblock %}
+
+{% block title %}{{ titulo }} - Editar Usuário{% endblock %}
 
 {% block content %}
-<h2>{{ titulo }}</h2>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow p-4" style="width: 100%; max-width: 480px;">
+    <h2 class="mb-4 text-center">{{ titulo }}</h2>
 
-<form method="post" novalidate>
-  {% csrf_token %}
-  {{ form.as_p }}
+    <form method="post" novalidate>
+      {% csrf_token %}
 
-  <button type="submit" class="btn btn-primary">Salvar</button>
-  <a href="{% url 'usuarios:lista_usuarios' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+      {% for field in form %}
+      <div class="mb-3">
+        {% if field.field.widget.input_type == "checkbox" %}
+          <div class="form-check">
+            {{ field|add_class:"form-check-input" }}
+            <label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+          </div>
+        {% else %}
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field|add_class:"form-control" }}
+        {% endif %}
+
+        {% if field.help_text %}
+          <div class="form-text">{{ field.help_text }}</div>
+        {% endif %}
+        {% if field.errors %}
+          <div class="invalid-feedback d-block">
+            {{ field.errors|striptags }}
+          </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary w-50">Salvar</button>
+        <a href="{% url 'usuarios:lista_usuarios' %}" class="btn btn-secondary w-45 ms-2">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.invalid-feedback').forEach(error => {
+      const input = error.previousElementSibling;
+      if (input) input.classList.add('is-invalid');
+    });
+  });
+</script>
 {% endblock %}

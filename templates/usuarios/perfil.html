@@ -2,22 +2,57 @@
 {% block title %}Perfil - Tasker{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2>Seu Perfil</h2>
-  <form method="post">
-    {% csrf_token %}
-    <h5>Dados de usuário</h5>
-    {{ user_form.as_p }}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+  <div class="card shadow p-4" style="width: 100%; max-width: 600px;">
+    <h3 class="text-center mb-4">👤 Seu Perfil</h3>
 
-    {% if user.is_superuser %}
-      {{ admin_form.as_p }}
-    {% endif %}
+    <form method="post" novalidate>
+      {% csrf_token %}
 
-    <button type="submit" class="btn btn-success">Salvar alterações</button>
-  </form>
+      {% for field in user_form %}
+        <div class="mb-3">
+          <input 
+            type="{{ field.field.widget.input_type }}"
+            name="{{ field.name }}"
+            id="{{ field.id_for_label }}"
+            value="{{ field.value|default_if_none:'' }}"
+            placeholder="{{ field.label }}"
+            class="form-control{% if field.errors %} is-invalid{% endif %}"
+          >
+          {% if field.errors %}
+            <div class="invalid-feedback">
+              {{ field.errors|striptags }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
 
-  <hr>
+      {% if user.is_superuser %}
+        {% for field in admin_form %}
+          <div class="mb-3">
+            <input 
+              type="{{ field.field.widget.input_type }}"
+              name="{{ field.name }}"
+              id="{{ field.id_for_label }}"
+              value="{{ field.value|default_if_none:'' }}"
+              placeholder="{{ field.label }}"
+              class="form-control{% if field.errors %} is-invalid{% endif %}"
+            >
+            {% if field.errors %}
+              <div class="invalid-feedback">
+                {{ field.errors|striptags }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endif %}
 
-  <a href="{% url 'usuarios:trocar_senha' %}" class="btn btn-warning mt-3">Trocar Senha</a>
+      <button type="submit" class="btn btn-success w-100">💾 Salvar Alterações</button>
+    </form>
+
+    <hr class="my-4">
+
+    <a href="{% url 'usuarios:trocar_senha' %}" class="btn btn-warning w-100">🔒 Trocar Senha</a>
+  </div>
 </div>
 {% endblock %}

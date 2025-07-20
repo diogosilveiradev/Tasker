@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'usuarios',
     'projetos',
     'tarefas',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'Tasker.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,5 +139,3 @@ MESSAGE_TAGS = {
 LOGIN_URL = '/usuarios/login/'
 LOGIN_REDIRECT_URL = '/home/'
 LOGOUT_REDIRECT_URL = '/usuarios/login/'
-
-

@@ -1,40 +1,112 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}{% if form.instance.pk %}Editar{% else %}Nova{% endif %} Tarefa{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <h2 class="mb-4">{% if form.instance.pk %}Editar{% else %}Nova{% endif %} Tarefa</h2>
+<style>
+  .form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #8b8b8;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    border: 2px solid #b8b8b8;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid #b8b8b8; 
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+
+  .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+
+  .is-invalid {
+    border-color: #dc3545
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+</style>
+
+<div class="form-container">
+  <h2 class="text-center mb-4">{% if form.instance.pk %}Editar{% else %}Nova{% endif %} Tarefa</h2>
 
   <form method="post">
     {% csrf_token %}
+
     <div class="mb-3">
       {{ form.titulo.label_tag }}
-      {{ form.titulo }}
+      {% if form.titulo.errors %}
+        {{ form.titulo|add_class:"form-control is-invalid" }}
+      {% else %}
+        {{ form.titulo|add_class:"form-control" }}
+      {% endif %}
       {{ form.titulo.errors }}
     </div>
 
     <div class="mb-3">
       {{ form.descricao.label_tag }}
-      {{ form.descricao }}
+      {% if form.descricao.errors %}
+        {{ form.descricao|add_class:"form-control is-invalid" }}
+      {% else %}
+        {{ form.descricao|add_class:"form-control" }}
+      {% endif %}
       {{ form.descricao.errors }}
     </div>
 
     <div class="mb-3">
       {{ form.prazo.label_tag }}
-      {{ form.prazo }}
+      {% if form.prazo.errors %}
+        {{ form.prazo|add_class:"form-control is-invalid" }}
+      {% else %}
+        {{ form.prazo|add_class:"form-control" }}
+      {% endif %}
       {{ form.prazo.errors }}
     </div>
 
-    <div class="mb-3">
+    <div class="form-check">
+      {{ form.concluida|add_class:"form-check-input" }}
       {{ form.concluida.label_tag }}
-      {{ form.concluida }}
       {{ form.concluida.errors }}
     </div>
 
-
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-secondary">Voltar</a>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-primary flex-grow-1">Salvar</button>
+      <a href="{% url 'projetos:lista_tarefas' projeto.id %}" class="btn btn-secondary flex-grow-1 text-center">Voltar</a>
+    </div>
   </form>
 </div>
 {% endblock %}
