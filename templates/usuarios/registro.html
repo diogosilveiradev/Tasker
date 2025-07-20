@@ -28,7 +28,33 @@
 
           <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+
+            <div class="mb-3">
+              {{ form.username.label_tag }}
+              {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.email.label_tag }}
+              {{ form.email }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.password1.label_tag }}
+              {{ form.password1 }}
+            </div>
+
+            <div class="mb-3">
+              {{ form.password2.label_tag }}
+              {{ form.password2 }}
+            </div>
+
+            {% if form.password1.help_text %}
+              <div class="mb-3 text-muted">
+                <small>{{ form.password1.help_text|safe }}</small>
+              </div>
+            {% endif %}
+
             <div class="d-grid">
               <button type="submit" class="btn btn-success">Registrar</button>
             </div>

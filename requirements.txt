@@ -1,5 +1,6 @@
-Django==3.2.21
-django-widget-tweaks==1.4.8
-django-decorator-include==1.4
-Pillow==10.2.0
-django-crispy-forms==2.0
+asgiref==3.9.1
+Django==5.2.4
+django-decorator-include==3.3
+django-widget-tweaks==1.5.0
+sqlparse==0.5.3
+tzdata==2025.2

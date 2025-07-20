@@ -21,7 +21,6 @@
           <tr>
             <th>Usuário</th>
             <th>Email</th>
-            <th>Nome Completo</th>
             <th>Staff?</th>
             <th class="text-center">Ações</th>
           </tr>
@@ -31,7 +30,6 @@
           <tr class="border-bottom">
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.get_full_name }}</td>
             <td>
               {% if user.is_staff %}
                 <span class="badge bg-success">Sim</span>

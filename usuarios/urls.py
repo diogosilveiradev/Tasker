@@ -18,5 +18,4 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('perfil/trocar-senha/',
         CustomPasswordChangeView.as_view(), name='trocar_senha'),
-
 ]
