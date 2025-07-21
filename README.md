@@ -63,7 +63,7 @@ Acesse o sistema em [http://127.0.0.1:8000]
 
 ## 🎥 Apresentação em vídeo
 
-👉 [Clique aqui para assistir à demonstração do sistema](https://link-do-video)
+👉 [Clique aqui para assistir à demonstração do sistema](https://youtu.be/xa_SE7yxZvg)
 
 ## 📁 Organização do projeto
 
